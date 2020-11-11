@@ -33,24 +33,27 @@ function getFinals(data){
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 3: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 Implement a higher-order function called `getYears` that accepts the callback function `getFinals`, and returns an array called `years` containing all of the years in the dataset */
 
-function getYears(/* code here here) {
-    /* code here */
-}
-
-const fifaYears = fifaData.map(function(object){
-    return object["Year"];
-  });
-  
-  console.log(fifaYears);
+function getYears(callback){
+    const years = callback.map(function(object){
+      return (object["Year"]);
+    });
+    return years;
+  }
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 4: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 Implement a higher-order function called `getWinners`, that accepts the callback function `getFinals()` and determine the winner (home or away) of each `finals` game. Return the name of all winning countries in an array called `winners` */ 
 
-function getWinners(/* code here */) {
-    /* code here */
-}
-
+function getWinners(data){
+    const winners = data.map(function(object){
+      if (object["Home Team Goals"] > object["Away Team Goals"]){
+        return object["Home Team Name"];
+      }else {
+        return object["Away Team Name"];
+      }
+    });
+    return winners;
+  }
 
 
 
@@ -62,18 +65,27 @@ Parameters:
  * callback function getYears
  */
 
-function getWinnersByYear(/* code here */) {
-    /* code here */
-}
+function getWinnersByYear(getWinnersCB, getYearsCB){
+    const years = getYearsCB;
+    const winners = getWinnersCB;
+    const winnersByYear = [];
+    winners.map(function(object, index){
+        winnersByYear.push(`In ${years[index]}, ${object} won the world cup!`);
+    });
+    return winnersByYear;
+  }
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 6: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 Write a function called `getAverageGoals` that accepts a parameter `data` and returns the the average number of home team goals and away team goals scored per match (Hint: use .reduce and do this in 2 steps) */
 
-function getAverageGoals(/* code here */) {
-   /* code here */
-}
-
-
+function getAverageGoals(data){
+    const average = data.reduce(function(accumulator, object){
+        return accumulator + object["Home Team Goals"];
+    }, 0) / data.length ;
+    return average;
+    }
+    
+    console.log(getAverageGoals(fifaData));
 
 
 
